@@ -1,6 +1,6 @@
-package com.SolarTracker.Controllers;
+package com.SolarTracker.controller;
 
-import com.SolarTracker.Services.OpenAIService;
+import com.SolarTracker.service.OpenAIService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;

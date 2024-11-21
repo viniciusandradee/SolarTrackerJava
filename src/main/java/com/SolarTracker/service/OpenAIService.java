@@ -1,4 +1,4 @@
-package com.SolarTracker.Services;
+package com.SolarTracker.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -69,4 +69,3 @@ public class OpenAIService {
                 .doOnSuccess(response -> logger.info("Resposta recebida da OpenAI: {}", response));
     }
 }
-
