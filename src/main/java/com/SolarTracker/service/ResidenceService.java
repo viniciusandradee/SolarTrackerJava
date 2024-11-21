@@ -14,18 +14,14 @@ public class ResidenceService {
 
     private final ResidenceRepository residenceRepository;
 
+    // Método para adicionar uma nova residência
     public Residence addResidence(Residence residence, User user) {
-        residence.setUser(user);
+        residence.setUser(user); // Associa a residência ao usuário
         return residenceRepository.save(residence);
     }
 
+    // Método para listar todas as residências de um usuário
     public Page<Residence> findAllByUser(User user, Pageable pageable) {
-        return residenceRepository.findAll(pageable)
-                .map(residence -> {
-                    if (!residence.getUser().equals(user)) {
-                        throw new SecurityException("Você não pode acessar esta residência.");
-                    }
-                    return residence;
-                });
+        return residenceRepository.findAllByUser(user, pageable);
     }
 }

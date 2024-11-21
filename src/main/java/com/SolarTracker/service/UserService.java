@@ -28,7 +28,7 @@ public class UserService {
 
         User user = new User();
         user.setEmail(registerDTO.getEmail());
-        user.setPassword(passwordEncoder.encode(registerDTO.getPassword()));
+        user.setPassword(passwordEncoder.encode(registerDTO.getPassword())); // Criptografa a senha
         return userRepository.save(user);
     }
 
@@ -49,4 +49,10 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
+    public void deleteUserById(Long id) {
+        if (!userRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Usuário com ID " + id + " não encontrado.");
+        }
+        userRepository.deleteById(id);
+    }
 }
