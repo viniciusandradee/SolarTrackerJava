@@ -1,5 +1,6 @@
 package com.SolarTracker.controller;
 
+import com.SolarTracker.exception.ResourceNotFoundException;
 import com.SolarTracker.model.Residence;
 import com.SolarTracker.model.User;
 import com.SolarTracker.service.ResidenceService;
@@ -22,23 +23,39 @@ public class ResidenceController {
     @CrossOrigin
     @PostMapping
     public ResponseEntity<Residence> addResidence(@RequestBody Residence residence, Authentication authentication) {
-        // Recupera o email do usuário autenticado a partir do token
-        String email = authentication.getName();
-        User user = userService.findByEmail(email);
+        try {
+            String email = authentication.getName();
+            User user = userService.findByEmail(email);
 
-        // Associa a residência ao usuário e salva
-        Residence createdResidence = residenceService.addResidence(residence, user);
-        return ResponseEntity.ok(createdResidence);
+            if (user == null) {
+                throw new ResourceNotFoundException("Usuário autenticado não encontrado.");
+            }
+
+            Residence createdResidence = residenceService.addResidence(residence, user);
+            return ResponseEntity.ok(createdResidence);
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(404).body(null);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(null);
+        }
     }
 
-    // Endpoint para listar residências do usuário autenticado
     @GetMapping
     public ResponseEntity<Page<Residence>> getAllResidences(Pageable pageable, Authentication authentication) {
-        // Recupera o email do usuário autenticado
-        String email = authentication.getName();
-        User user = userService.findByEmail(email);
+        try {
+            String email = authentication.getName();
+            User user = userService.findByEmail(email);
 
-        // Busca todas as residências associadas ao usuário
-        return ResponseEntity.ok(residenceService.findAllByUser(user, pageable));
+            if (user == null) {
+                throw new ResourceNotFoundException("Usuário autenticado não encontrado.");
+            }
+
+            Page<Residence> residences = residenceService.findAllByUser(user, pageable);
+            return ResponseEntity.ok(residences);
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(404).body(null);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(null);
+        }
     }
 }
