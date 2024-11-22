@@ -24,7 +24,7 @@ public class OpenAIService {
     // Definindo a URL da API diretamente na constante
     private static final String OPENAI_API_URL = "https://api.openai.com/v1/chat/completions";
 
-    @Value("${spring.ai.openai.api-key}")
+    @Value("${OPENAI_API_KEY}")
     private String openAiApiKey;
 
     public OpenAIService(WebClient.Builder webClientBuilder) {
