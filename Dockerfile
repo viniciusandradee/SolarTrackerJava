@@ -1,5 +1,5 @@
 # Etapa 1: Build da aplicação
-FROM maven:3.8.8-eclipse-temurin-17 AS builder
+FROM eclipse-temurin:17-jdk AS builder
 WORKDIR /app
 COPY . .
 RUN chmod +x ./mvnw
