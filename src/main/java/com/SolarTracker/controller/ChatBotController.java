@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/chatbot")
+@RequestMapping("/chatbot")
 public class ChatBotController {
 
     private static final Logger logger = LoggerFactory.getLogger(ChatBotController.class);

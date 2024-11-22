@@ -19,7 +19,7 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    private final MessageProducer messageProducer; // Produtor de mensagens para RabbitMQ
+    private final MessageProducer messageProducer;
 
     public User registerUser(RegisterDTO registerDTO) {
         Optional<User> existingUser = userRepository.findByEmail(registerDTO.getEmail());
@@ -32,7 +32,6 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(registerDTO.getPassword())); // Criptografa a senha
         User savedUser = userRepository.save(user);
 
-        // Enviar mensagem para RabbitMQ após registrar usuário
         String message = "Novo usuário registrado: " + savedUser.getEmail();
         messageProducer.sendMessage(message);
 
@@ -62,7 +61,6 @@ public class UserService {
         }
         userRepository.deleteById(id);
 
-        // Enviar mensagem para RabbitMQ após deletar usuário
         String message = "Usuário com ID " + id + " foi deletado.";
         messageProducer.sendMessage(message);
     }

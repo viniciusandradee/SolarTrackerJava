@@ -21,7 +21,6 @@ public class OpenAIService {
 
     private final WebClient webClient;
 
-    // Definindo a URL da API diretamente na constante
     private static final String OPENAI_API_URL = "https://api.openai.com/v1/chat/completions";
 
     @Value("${OPENAI_API_KEY}")
@@ -60,7 +59,7 @@ public class OpenAIService {
                         JsonNode rootNode = objectMapper.readTree(response);
                         // Extraindo o conteúdo da resposta do assistente
                         JsonNode messageNode = rootNode.path("choices").get(0).path("message").path("content");
-                        return messageNode.asText(); // Retorna o texto da resposta do assistente
+                        return messageNode.asText();
                     } catch (Exception e) {
                         logger.error("Erro ao processar a resposta: {}", e.getMessage());
                         return "Erro ao processar a resposta";

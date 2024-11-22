@@ -9,6 +9,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ResidenceRepository extends JpaRepository<Residence, Long> {
-    // Busca residências associadas a um usuário específico
     Page<Residence> findAllByUser(User user, Pageable pageable);
 }

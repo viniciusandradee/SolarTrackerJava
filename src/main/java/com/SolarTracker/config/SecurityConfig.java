@@ -23,8 +23,8 @@ public class SecurityConfig {
                 .cors(withDefaults())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers("/api/chatbot").permitAll()
-                        .requestMatchers("/messaging/send").permitAll()
+                        .requestMatchers("/chatbot").permitAll()
+                        .requestMatchers("/messages/send").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class) // Adiciona o filtro JWT
