@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/messaging")
+@RequestMapping("/messages")
 public class MessageController {
 
     private final MessageProducer messageProducer;
@@ -17,6 +17,6 @@ public class MessageController {
     @PostMapping("/send")
     public ResponseEntity<String> sendMessage(@RequestBody String message) {
         messageProducer.sendMessage(message);
-        return ResponseEntity.ok("Mensagem enviada com sucesso: " + message);
+        return ResponseEntity.ok("Mensagem enviada: " + message);
     }
 }

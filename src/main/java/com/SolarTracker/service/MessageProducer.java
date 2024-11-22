@@ -18,7 +18,7 @@ public class MessageProducer {
     }
 
     public void sendMessage(String message) {
-        logger.info("Enviando mensagem para a fila: {}", message);
+        logger.info("Enviando mensagem: {}", message);
         rabbitTemplate.convertAndSend(RabbitMQConfig.EXCHANGE_NAME, RabbitMQConfig.ROUTING_KEY, message);
     }
 }

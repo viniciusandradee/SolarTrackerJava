@@ -14,7 +14,6 @@ public class MessageConsumer {
     @RabbitListener(queues = RabbitMQConfig.QUEUE_NAME)
     public void receiveMessage(String message) {
         logger.info("Mensagem recebida: {}", message);
-
-        // Aqui você pode processar a mensagem recebida
+        // Processar a mensagem
     }
 }
